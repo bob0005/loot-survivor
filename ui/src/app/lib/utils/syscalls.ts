@@ -433,7 +433,7 @@ export function createSyscalls({
             entrypoint: "approve",
             calldata: [
               gameContract?.address ?? "",
-              (costToPlay! * 1.1)!.toString(),
+              costToPlay!.toString(),
               "0",
             ],
           },
