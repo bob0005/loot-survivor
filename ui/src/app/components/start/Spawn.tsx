@@ -12,6 +12,7 @@ import { soundSelector, useUiSounds } from "@/app/hooks/useUiSound";
 import useUIStore from "@/app/hooks/useUIStore";
 import { battle } from "@/app/lib/constants";
 import { networkConfig } from "@/app/lib/networkConfig";
+import { formatLords } from "@/app/lib/utils";
 import { Adventurer, FormData, GameToken } from "@/app/types";
 import Image from "next/image";
 import Lords from "public/icons/lords.svg";
@@ -216,7 +217,9 @@ export const Spawn = ({
                               ) : (
                                 <span className="flex flex-row gap-1 items-center justify-center">
                                   <Lords className="self-center w-24 h-24 fill-current" />
-                                  <p className="text-6xl no-text-shadow">59</p>
+                                  <p className="text-6xl no-text-shadow">
+                                    {formatLords(lordsGameCost)}
+                                  </p>
                                 </span>
                               )}
                               <span className="relative h-40 w-full">
