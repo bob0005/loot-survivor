@@ -56,6 +56,9 @@ export default function UpgradeScreen({
   upgrade,
   gameContract,
 }: UpgradeScreenProps) {
+  const [nonBoostedStats, setNonBoostedStats] = useState<UpgradeStats>({
+    ...ZeroUpgrade,
+  });
   const adventurer = useAdventurerStore((state) => state.adventurer);
   const updateAdventurerStats = useAdventurerStore(
     (state) => state.updateAdventurerStats
@@ -149,8 +152,27 @@ export default function UpgradeScreen({
       }
     };
 
+    const fetchNonBoostedStats = async () => {
+      if ((entropyReady || onKatana || g20Unlock) && adventurer?.level == 2) {
+        const nonBoostedAdventurer = (await gameContract!.call(
+          "get_adventurer_no_boosts",
+          [adventurer?.id!]
+        )) as any;
+        setNonBoostedStats({
+          Strength: parseInt(nonBoostedAdventurer.stats.strength),
+          Dexterity: parseInt(nonBoostedAdventurer.stats.dexterity),
+          Vitality: parseInt(nonBoostedAdventurer.stats.vitality),
+          Intelligence: parseInt(nonBoostedAdventurer.stats.intelligence),
+          Wisdom: parseInt(nonBoostedAdventurer.stats.wisdom),
+          Charisma: parseInt(nonBoostedAdventurer.stats.charisma),
+          Luck: parseInt(nonBoostedAdventurer.stats.luck),
+        });
+      }
+    };
+
     fetchMarketItems();
     fetchAdventurerStats();
+    fetchNonBoostedStats();
   }, [entropyReady, g20Unlock]);
 
   const gameData = new GameData();
@@ -168,6 +190,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Strength",
       abbrev: "STR",
       stat: adventurer?.strength!,
+      nonBoostedStat: nonBoostedStats["Strength"] ?? 0,
       upgrades: upgrades["Strength"] ?? 0,
     },
     {
@@ -178,6 +201,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Dexterity",
       abbrev: "DEX",
       stat: adventurer?.dexterity!,
+      nonBoostedStat: nonBoostedStats["Dexterity"] ?? 0,
       upgrades: upgrades["Dexterity"] ?? 0,
     },
     {
@@ -188,6 +212,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Vitality",
       abbrev: "VIT",
       stat: adventurer?.vitality!,
+      nonBoostedStat: nonBoostedStats["Vitality"] ?? 0,
       upgrades: upgrades["Vitality"] ?? 0,
     },
     {
@@ -198,6 +223,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Intelligence",
       abbrev: "INT",
       stat: adventurer?.intelligence!,
+      nonBoostedStat: nonBoostedStats["Intelligence"] ?? 0,
       upgrades: upgrades["Intelligence"] ?? 0,
     },
     {
@@ -208,6 +234,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Wisdom",
       abbrev: "WIS",
       stat: adventurer?.wisdom!,
+      nonBoostedStat: nonBoostedStats["Wisdom"] ?? 0,
       upgrades: upgrades["Wisdom"] ?? 0,
     },
     {
@@ -218,6 +245,7 @@ export default function UpgradeScreen({
       buttonText: "Upgrade Charisma",
       abbrev: "CHA",
       stat: adventurer?.charisma!,
+      nonBoostedStat: nonBoostedStats["Charisma"] ?? 0,
       upgrades: upgrades["Charisma"] ?? 0,
     },
   ];
