@@ -275,6 +275,11 @@ const processObstacleEncounter = (
   if (currentEncounter.dodgeRoll! > currentAdventurer.intelligence!) {
     obstacleState.health = obstacleState.health! - currentEncounter.damage!;
   }
+
+  items.forEach(
+    (item) => (item.xp! += currentEncounter.nextXp - obstacleState.xp!)
+  );
+
   obstacleState.xp = currentEncounter.nextXp;
   obstacleState.level = calculateLevel(obstacleState.xp);
   const nextEncounter = getNextEncounter(
@@ -327,6 +332,12 @@ export const processBeastEncounterCombat = (
     battleState,
     adventurerEntropy
   );
+
+  if (battleResult.success) {
+    items.forEach(
+      (item) => (item.xp! += (currentEncounter.nextXp - battleState.xp!) * 2)
+    );
+  }
 
   battleState.health = battleResult.healthLeft;
   battleState.xp = currentEncounter.nextXp;
