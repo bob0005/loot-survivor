@@ -90,7 +90,7 @@ const Paths = () => {
       getPaths(
         updatedAdventurer,
         adventurerEntropy,
-        items,
+        [...items], //shallow copy
         gameData,
         data,
         hasBeast
