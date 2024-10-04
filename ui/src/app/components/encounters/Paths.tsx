@@ -82,7 +82,16 @@ const Paths = () => {
 
   const items = useMemo(
     () => getItems(purchaseItems, data, gameData),
-    [data.itemsByAdventurerQuery?.items, purchaseItemsObjects]
+    [
+      data.itemsByAdventurerQuery?.items,
+      purchaseItemsObjects,
+      upgrades.Charisma,
+      upgrades.Intelligence,
+      upgrades.Wisdom,
+      upgrades.Strength,
+      upgrades.Dexterity,
+      upgrades.Vitality,
+    ]
   );
 
   const outcomesWithPath = useMemo(
