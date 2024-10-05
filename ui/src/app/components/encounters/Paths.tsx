@@ -85,12 +85,7 @@ const Paths = () => {
     [
       data.itemsByAdventurerQuery?.items,
       purchaseItemsObjects,
-      upgrades.Charisma,
-      upgrades.Intelligence,
-      upgrades.Wisdom,
-      upgrades.Strength,
-      upgrades.Dexterity,
-      upgrades.Vitality,
+      updatedAdventurer
     ]
   );
 
