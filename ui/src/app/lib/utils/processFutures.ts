@@ -334,9 +334,16 @@ export const processBeastEncounterCombat = (
   );
 
   if (battleResult.success) {
-    items.forEach(
-      (item) => (item.xp! += (currentEncounter.nextXp - battleState.xp!) * 2)
-    );
+    items.forEach((item) => {
+      console.log("Item:", item.slot);
+      console.log("Curr xp:", item.xp);
+      console.log("Curr lvl:", item.level);
+      console.log(
+        "After beast cbt xp:",
+        item.xp! + (currentEncounter.nextXp - battleState.xp!) * 2
+      );
+      item.xp! += (currentEncounter.nextXp - battleState.xp!) * 2;
+    });
   }
 
   battleState.health = battleResult.healthLeft;
