@@ -35,6 +35,12 @@ interface AdventurerScreenProps {
     from: string,
     recipient: string
   ) => Promise<void>;
+  changeAdventurerName: (
+    account: AccountInterface,
+    adventurerId: number,
+    name: string,
+    index: number
+  ) => Promise<void>;
 }
 
 /**
@@ -50,6 +56,7 @@ export default function AdventurerScreen({
   getBalances,
   costToPlay,
   transferAdventurer,
+  changeAdventurerName,
 }: AdventurerScreenProps) {
   const [activeMenu, setActiveMenu] = useState(0);
   const setAdventurer = useAdventurerStore((state) => state.setAdventurer);
@@ -152,6 +159,7 @@ export default function AdventurerScreen({
             adventurersCount={adventurersByOwnerCount}
             aliveAdventurersCount={aliveAdventurersByOwnerCount}
             transferAdventurer={transferAdventurer}
+            changeAdventurerName={changeAdventurerName}
           />
         </div>
       )}
